@@ -7,6 +7,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 import logging
 import time
 
+url = "https://google.com"
+
 def main():
 	options = webdriver.ChromeOptions()
 	options.add_argument("headless")
@@ -22,26 +24,40 @@ def main():
 	# logger = logging.getLogger("selenium")
 	# logger.log(level=logging.DEBUG)
 
-	# i = input()
-	i = "https://www.amazon.com/portable-ultrasound/s?k=portable+ultrasound"
-	browser.get(i)
-	
-	page_load(5)
+	i = input()
+	# i = "https://www.amazon.com/portable-ultrasound/s?k=portable+ultrasound"
+	# browser.get(url)
+	# page_load(5)
+
 	# input = browser.find_element_by_id('kw')
+	# browser.find_element(By.NAME, "q")
 	# input.send_keys('Python')
 	# input.send_keys(Keys.ENTER)
 	# wait = WebDriverWait(browser, 10)
 	# wait.until(EC.presence_of_element_located((By.ID, "content_left")))
 	# print(browser.current_url)
 	# print(browser.get_cookies())
-	# browser.save_screenshot("screen.png")
-	browser.save_full_page_screenshot("screen.png")
+	# browser.save_full_page_screenshot("screen.png")
+	search(browser, i)
+	save_page(browser, "screen{0}.png".format(time.time_ns()))
 	# save_file(browser.get_screenshot_as_png(), "screen.png")
 	# print(browser.page_source)
 	browser.close()
 
+def search(b, query):
+	b.get(url)
+	page_load(5)
+	input = b.find_element(By.NAME, "q")
+	input.send_keys(query)
+	# save_page(b, "s.png")
+	input.send_keys(Keys.ENTER)
+	page_load(5)
+
 def page_load(t):
 	time.sleep(t)
+
+def save_page(b, f):
+	b.save_full_page_screenshot(f)
 
 def save_file(data, name):
 	f = open(name, "+bw")
