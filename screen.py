@@ -24,11 +24,19 @@ def main():
 	# logger = logging.getLogger("selenium")
 	# logger.log(level=logging.DEBUG)
 
-	i = input()
-	# i = "https://www.amazon.com/portable-ultrasound/s?k=portable+ultrasound"
-	# browser.get(url)
-	# page_load(5)
-
+	while True:
+		i = input()
+		# i = "https://www.amazon.com/portable-ultrasound/s?k=portable+ultrasound"
+		# browser.get(i)
+		if i == "":
+			save_page(browser)
+		elif i == "exit":
+			browser.close()
+		else:
+			grab_page(browser, i)
+		# page_load(5)
+		# search(browser, i)
+	
 	# input = browser.find_element_by_id('kw')
 	# browser.find_element(By.NAME, "q")
 	# input.send_keys('Python')
@@ -38,11 +46,16 @@ def main():
 	# print(browser.current_url)
 	# print(browser.get_cookies())
 	# browser.save_full_page_screenshot("screen.png")
-	search(browser, i)
-	save_page(browser, "screen{0}.png".format(time.time_ns()))
+	
 	# save_file(browser.get_screenshot_as_png(), "screen.png")
 	# print(browser.page_source)
-	browser.close()
+
+	# browser.close()
+
+def grab_page(b, i):
+	b.get(i)
+	time.sleep(5)
+	save_page(b)
 
 def search(b, query):
 	b.get(url)
@@ -56,8 +69,8 @@ def search(b, query):
 def page_load(t):
 	time.sleep(t)
 
-def save_page(b, f):
-	b.save_full_page_screenshot(f)
+def save_page(b):
+	b.save_full_page_screenshot("screen{0}.png".format(time.time_ns()))
 
 def save_file(data, name):
 	f = open(name, "+bw")
