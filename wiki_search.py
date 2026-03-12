@@ -22,7 +22,8 @@ def load():
 
 def store():
 	with open("saved.txt", "+w") as f:
-		f.writelines(SEARCHES)
+		for x in SEARCHES:
+			f.write(x+"\n")
 
 def main():
 	global SEARCHES
@@ -32,6 +33,8 @@ def main():
 			load()
 		elif i == "s":
 			store()
+		elif i == "":
+			pass
 		else:
 			js = gettext(i, 100)
 			for x in js["pages"]:

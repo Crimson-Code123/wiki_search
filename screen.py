@@ -33,7 +33,10 @@ def main():
 		elif i == "exit":
 			browser.close()
 		else:
-			grab_page(browser, i)
+			try:
+				grab_page(browser, i)
+			except:
+				continue
 		# page_load(5)
 		# search(browser, i)
 	
